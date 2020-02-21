@@ -1,14 +1,23 @@
 // Criando Schema
 var mongoose = require('mongoose');
 var userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required:true
-    },
-    senha: {
+    name: {
         type: String,
         required: true
-    }
+    },
+    email: {
+        type: String,
+        required: true,
+        
+    },
+    pass: {
+        type: String,
+        required: true
+    },
+    profiles: [{
+        name: String,
+        whishlist: [Number]
+    }]
 });
 //Criando o modelo 
 module.exports = mongoose.model('User', userSchema);

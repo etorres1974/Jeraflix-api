@@ -15,9 +15,46 @@ class userController {
         res.json(user)
     }
 
-    static cadastrar(req, res) {
-        userModel.create(req.body)
-        res.send(req.body.email + ' Cadastrado com sucesso')
+    static async cadastrar(req, res) {
+        try {
+            await userModel.find({
+                email: req.body.email
+            }, async function (err, docs) {
+                if (docs.length == 0) {
+                    try{
+                        await userModel.create(req.body)
+                        res.json({value:"success", message:`Usuário cadastrado com sucesso`})
+                    }catch(err){
+                        res.send(err)
+                    }
+                    
+                } else {
+                    res.json({value:"error", message:"Error: Email já foi cadastrado"})
+
+                }
+            })
+        } catch (error) {
+            res.send(error)
+        }
+
+
+    }
+
+    static login(req, res) {
+        userModel.find({
+            email: req.body.email,
+            pass: req.body.pass
+        }, function (err, docs) {
+            if (docs.length == 0) {
+                res.json({value:"error", message:"Error: email não cadastrado ou senha inválida"})
+            } else {
+                res.send({value:"success", message:`Usuário logado`})
+            }
+            if (err) {
+                res.send(err)
+            }
+        })
+
     }
 
     static async alterar(req, res) {

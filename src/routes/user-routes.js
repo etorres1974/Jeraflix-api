@@ -12,6 +12,9 @@ router.get("/:id", userController.buscarPorId)
 //Cadastro de users
 router.post("/",  userController.cadastrar)
 
+//Login
+router.post("/login",  userController.login)
+
 //Alteração de dados de uma user
 router.put("/", userController.alterar)
 
