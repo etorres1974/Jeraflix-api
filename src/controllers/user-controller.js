@@ -16,11 +16,11 @@ class userController {
     }
 
     static async cadastrar(req, res) {
-        try {
+        try {// Verificar se o usuário ja existe
             await userModel.find({
                 email: req.body.email
             }, async function (err, docs) {
-                if (docs.length == 0) {
+                if (docs.length == 0) { //Se o email não estiver cadastrado o usuário não existe ainda
                     try{
                         await userModel.create(req.body)
                         res.json({value:"success", message:`Usuário cadastrado com sucesso`})
@@ -28,7 +28,7 @@ class userController {
                         res.send(err)
                     }
                     
-                } else {
+                } else {// ja existe o usuário
                     res.json({value:"error", message:"Error: Email já foi cadastrado"})
 
                 }
@@ -40,7 +40,7 @@ class userController {
 
     }
 
-    static login(req, res) {
+    static async  login(req, res) {
         userModel.find({
             email: req.body.email,
             pass: req.body.pass
@@ -48,29 +48,12 @@ class userController {
             if (docs.length == 0) {
                 res.json({value:"error", message:"Error: email não cadastrado ou senha inválida"})
             } else {
-                res.send({value:"success", message:`Usuário logado`})
+                res.send({value:"success", message:`Usuário logado`, user: docs})
             }
             if (err) {
                 res.send(err)
             }
         })
-
-    }
-
-    static async alterar(req, res) {
-
-        //Leitura dos dados em Json
-        let id = req.body.id
-
-        var cat = {
-            descricao: req.body.descricao
-        }
-
-        await userModel.findByIdAndUpdate({
-            _id: id
-        }, cat)
-
-        res.send('Alterado com sucesso ')
 
     }
 

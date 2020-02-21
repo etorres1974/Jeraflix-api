@@ -15,9 +15,6 @@ router.post("/",  userController.cadastrar)
 //Login
 router.post("/login",  userController.login)
 
-//Alteração de dados de uma user
-router.put("/", userController.alterar)
-
 //Exclusão de uma user pelo ID
 router.delete("/:id", userController.deletar)
 
