@@ -66,6 +66,18 @@ class userController {
 
         res.send('Deletado com sucesso')
     }
+
+    static async alterar(req, res) {
+            userModel.findById(req.params.id , function (err,doc){
+                console.log(doc)
+                if(err){
+                    res.send(err)
+                }
+                doc.profiles.push(req.body)
+                res.send(doc.save())
+                
+            })
+    }
 }
 
 module.exports = userController
