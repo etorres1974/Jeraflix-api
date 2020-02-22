@@ -16,6 +16,7 @@ class userController {
     }
 
     static async cadastrar(req, res) {
+        console.log(req.body)
         try {// Verificar se o usuário ja existe
             await userModel.find({
                 email: req.body.email
@@ -68,8 +69,8 @@ class userController {
     }
 
     static async alterar(req, res) {
+        console.log(req.body)
             userModel.findById(req.params.id , function (err,doc){
-                console.log(doc)
                 if(err){
                     res.send(err)
                 }
@@ -86,7 +87,7 @@ class userController {
                 }
                 doc.profiles.forEach(profile => {
                     if(profile._id == req.body.profileId){
-                        profile.whishlist.push(req.body.movie)
+                        profile.wishlist.push(req.body.movie)
                     }
                 })
                 res.send(doc.save())

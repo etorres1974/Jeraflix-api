@@ -17,6 +17,8 @@ router.post("/login",  userController.login)
 
 //Alteração de um User
 router.put("/:id", userController.alterar)
+
+//Adicionar um filme ao Favoritos/wishlist  de um Perfil
 router.put("/favorite/:id", userController.favoritar)
 
 //Exclusão de uma user pelo ID
