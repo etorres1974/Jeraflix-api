@@ -21,6 +21,8 @@ router.put("/:id", userController.alterar)
 //Adicionar um filme ao Favoritos/wishlist  de um Perfil
 router.put("/favorite/:id", userController.favoritar)
 
+router.delete("/favorite/:id", userController.desfavoritar)
+
 //Exclusão de uma user pelo ID
 router.delete("/:id", userController.deletar)
 

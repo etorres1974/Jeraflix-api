@@ -93,6 +93,23 @@ class userController {
                 res.send(doc.save())
             })
     }
+    static async desfavoritar(req, res) {
+        console.log(req.body)
+        userModel.findById(req.params.id , function (err,doc){
+            if(err){
+                res.send(err)
+            }
+            doc.profiles.forEach(profile => {
+                if(profile._id == req.body.profileId){
+                    // Procurar o filme
+                    var movieIndex = profile.wishlist.findIndex(movie => movie.id === req.body.movie.id)
+                    console.log("Indíce do filme é: " + movieIndex)
+                    profile.wishlist.splice(movieIndex, 1)
+                }
+            })
+            res.send(doc.save())
+        })
+}
 }
 
 module.exports = userController
