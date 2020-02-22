@@ -78,6 +78,20 @@ class userController {
                 
             })
     }
+
+    static async favoritar(req, res) {
+            userModel.findById(req.params.id , function (err,doc){
+                if(err){
+                    res.send(err)
+                }
+                doc.profiles.forEach(profile => {
+                    if(profile._id == req.body.profileId){
+                        profile.whishlist.push(req.body.movie)
+                    }
+                })
+                res.send(doc.save())
+            })
+    }
 }
 
 module.exports = userController

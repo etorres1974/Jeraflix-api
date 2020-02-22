@@ -17,6 +17,7 @@ router.post("/login",  userController.login)
 
 //Alteração de um User
 router.put("/:id", userController.alterar)
+router.put("/favorite/:id", userController.favoritar)
 
 //Exclusão de uma user pelo ID
 router.delete("/:id", userController.deletar)

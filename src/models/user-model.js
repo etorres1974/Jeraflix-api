@@ -17,7 +17,7 @@ var userSchema = new mongoose.Schema({
     },
     profiles: [{
         name: String,
-        whishlist: [Number]
+        whishlist: Array
     }]
 });
 //Criando o modelo 
