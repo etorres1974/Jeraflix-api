@@ -109,7 +109,31 @@ class userController {
             })
             res.send(doc.save())
         })
-}
+    }
+
+    static async like(req, res) {
+       
+        userModel.findById(req.params.id ,async function (err,doc){
+            if(err){
+                res.send(err)
+            }
+            doc.profiles.forEach(async profile => {
+                if(profile._id == req.body.profileId){
+                    //Se ja existir um like para esse Filme, retorna o index, senão retorna -1
+                    var index = profile.likes.findIndex(like => like.id == req.body.obj.id)
+                    // Se não existir adiciona o like, se exitir substitui o valor
+                    
+                    if(index == -1 ){
+                        profile.likes.push(req.body.obj)
+                    }else{
+                        profile.likes.splice(index, 1)
+                        profile.likes.push(req.body.obj)
+                    }
+                }
+            })
+            res.send(await doc.save())
+        })
+    }
 }
 
 module.exports = userController

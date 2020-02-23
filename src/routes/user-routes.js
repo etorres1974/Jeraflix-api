@@ -23,6 +23,8 @@ router.put("/favorite/:id", userController.favoritar)
 
 router.delete("/favorite/:id", userController.desfavoritar)
 
+router.put("/like/:id", userController.like)
+
 //Exclusão de uma user pelo ID
 router.delete("/:id", userController.deletar)
 
